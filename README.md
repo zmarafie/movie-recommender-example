@@ -1,3 +1,4 @@
+
 # Movie Recommendation System Example
 
 This project demonstrates a simple movie recommendation system using Python and Google Colab. The system recommends movies based on user preferences and genres.
@@ -42,11 +43,47 @@ This project demonstrates a simple movie recommendation system using Python and 
 ---
 
 ## Example Dataset
-The notebook uses a small dataset of 20 movies with the following details:
-- **Genres**: Sci-Fi, Animation, Action, Crime, Fantasy, Drama, Romance, Adventure.
-- **Movies**: Titles include "Inception," "The Matrix," "Toy Story," "Parasite," "The Godfather," etc.
+The notebook uses a dataset of 100 movies with the following details:
+- **Genres**: Action, Drama, Comedy, Sci-Fi, Horror, Romance, Fantasy, Adventure, Animation, Crime, etc.
+- **Movies**: Titles include "The Shawshank Redemption," "The Godfather," "The Dark Knight," "Forrest Gump," "The Matrix," etc.
+- **Ratings**: Each movie has an average rating between 3.0 and 5.0.
 
 You can customize or expand the dataset directly in the notebook to experiment further.
+
+---
+
+## Example Output
+
+Assuming the user likes these movies:
+- **Liked Movies**: `The Shawshank Redemption`, `The Godfather`, `The Dark Knight`
+
+The system outputs the following top 5 recommendations:
+
+| **Title**                           | **Genre**   | **Average Rating** | **Recommendation Score** |
+|-------------------------------------|-------------|---------------------|---------------------------|
+| Thor: Ragnarok                      | Action      | 4.98               | 5.98                      |
+| The Green Mile                      | Drama       | 4.96               | 5.96                      |
+| Captain America: The Winter Soldier| Action      | 4.90               | 5.90                      |
+| Schindler's List                    | Drama       | 4.84               | 5.84                      |
+| Forrest Gump                        | Drama       | 4.84               | 5.84                      |
+
+---
+
+## How to Adjust for New Recommendations
+
+### Step 1: Change the User's Liked Movies
+1. In the notebook, locate the following code snippet:
+   ```python
+   liked_movies = ["The Shawshank Redemption", "The Godfather", "The Dark Knight"]
+   ```
+2. Replace the movie titles in `liked_movies` with your own preferences. For example:
+   ```python
+   liked_movies = ["Pulp Fiction", "Schindler's List", "Forrest Gump"]
+   ```
+
+### Step 2: Re-run the Notebook
+1. After modifying the `liked_movies` list, re-run all the cells in the notebook.
+2. The recommendations will update based on the new preferences.
 
 ---
 
