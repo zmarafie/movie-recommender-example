@@ -178,5 +178,5 @@ If you encounter any issues or have suggestions for improvement, feel free to co
 
 ---
 
-## License (Optional)
-This project is free to use and modify. You may add a formal open-source license like MIT if needed.
+## License
+This project is open-source and available under the [MIT License](https://opensource.org/licenses/MIT). Feel free to use and modify it for personal or educational purposes.
