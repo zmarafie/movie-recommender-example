@@ -87,6 +87,72 @@ The system outputs the following top 5 recommendations:
 
 ---
 
+## Adjusting the Scoring Formula
+
+The recommendation system uses the following formula to calculate the **Recommendation Score**:
+
+```python
+RecommendationScore = GenreScore + AverageRating
+```
+
+You can adjust this formula to give more weight to certain factors, such as user preferences (GenreScore) or the movie's general popularity (AverageRating). Below are two examples.
+
+### Example 1: Prioritize User Preferences (GenreScore)
+If you want the system to prioritize movies similar to the genres of the user's liked movies, increase the weight of `GenreScore`. For example:
+
+```python
+RecommendationScore = (2 * GenreScore) + AverageRating
+```
+
+To update the notebook:
+1. Locate the section where `RecommendationScore` is calculated:
+   ```python
+   movies['RecommendationScore'] = movies['GenreScore'] + movies['Rating']
+   ```
+2. Modify it to:
+   ```python
+   movies['RecommendationScore'] = (2 * movies['GenreScore']) + movies['Rating']
+   ```
+3. Re-run all cells in the notebook to apply the new formula.
+
+---
+
+### Example 2: Prioritize Popularity (AverageRating)
+If you want to recommend movies that are highly rated across all users, increase the weight of `AverageRating`. For example:
+
+```python
+RecommendationScore = GenreScore + (2 * AverageRating)
+```
+
+To update the notebook:
+1. Locate the section where `RecommendationScore` is calculated:
+   ```python
+   movies['RecommendationScore'] = movies['GenreScore'] + movies['Rating']
+   ```
+2. Modify it to:
+   ```python
+   movies['RecommendationScore'] = movies['GenreScore'] + (2 * movies['Rating'])
+   ```
+3. Re-run all cells in the notebook to apply the new formula.
+
+---
+
+### Testing Different Formulas
+Feel free to experiment with different weights to balance personalization and popularity. For example:
+
+- **Balanced Weighting**:
+  ```python
+  RecommendationScore = (1.5 * GenreScore) + (1.5 * AverageRating)
+  ```
+- **Focus on Genre Diversity**:
+  ```python
+  RecommendationScore = (3 * GenreScore) + AverageRating
+  ```
+
+Update the formula in the notebook and re-run all cells to see how the recommendations change!
+
+---
+
 ## Troubleshooting
 
 ### **Colab Disconnects Frequently**
