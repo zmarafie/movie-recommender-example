@@ -152,6 +152,32 @@ Feel free to experiment with different weights to balance personalization and po
 Update the formula in the notebook and re-run all cells to see how the recommendations change!
 
 ---
+### Advanced Customizations for the Recommendation System
+You can modify the scoring formula or introduce additional factors to adjust how recommendations are generated. Below are concepts you can add to the notebook, along with step-by-step instructions.
+
+1. Adding Genre Diversity
+Encourage recommendations from underrepresented genres by penalizing overrepresented ones.
+
+Code:
+
+Locate the section where `RecommendationScore` is calculated:
+```python
+movies['RecommendationScore'] = movies['GenreScore'] + movies['Rating']
+```
+
+2. Replace it with:
+
+```python
+movies['DiversityPenalty'] = movies['Genre'].map(liked_genres_count) * -0.1
+movies['RecommendationScore'] = movies['GenreScore'] + movies['Rating'] + movies['DiversityPenalty']
+```
+
+Explanation:
+
+`DiversityPenalty` adds a small penalty for movies in genres that are already highly represented in the user's liked movies.
+This will promote diversity in the recommendations.
+
+---
 
 ## Troubleshooting
 
