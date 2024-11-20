@@ -152,30 +152,95 @@ Feel free to experiment with different weights to balance personalization and po
 Update the formula in the notebook and re-run all cells to see how the recommendations change!
 
 ---
-### Advanced Customizations for the Recommendation System
+# Advanced Customizations for the Recommendation System (Optional)
 You can modify the scoring formula or introduce additional factors to adjust how recommendations are generated. Below are concepts you can add to the notebook, along with step-by-step instructions.
 
-1. Adding Genre Diversity
+## Adding Genre Diversity
 Encourage recommendations from underrepresented genres by penalizing overrepresented ones.
 
-Code:
-
-Locate the section where `RecommendationScore` is calculated:
+1. Locate the section where `RecommendationScore` is calculated:
 ```python
 movies['RecommendationScore'] = movies['GenreScore'] + movies['Rating']
 ```
 
 2. Replace it with:
-
 ```python
 movies['DiversityPenalty'] = movies['Genre'].map(liked_genres_count) * -0.1
 movies['RecommendationScore'] = movies['GenreScore'] + movies['Rating'] + movies['DiversityPenalty']
 ```
 
-Explanation:
-
+### Explanation:
 `DiversityPenalty` adds a small penalty for movies in genres that are already highly represented in the user's liked movies.
 This will promote diversity in the recommendations.
+
+---
+
+## Prioritizing Recent Releases
+Boost the scores of more recent movies to cater to users who prefer newer content.
+
+1. Add a `ReleaseYear` column to the dataset (if it doesn't exist) with appropriate values.
+Locate the `RecommendationScore` calculation and replace it with:
+
+```python
+current_year = 2024
+movies['RecencyBonus'] = (current_year - movies['ReleaseYear']) * -0.01
+movies['RecommendationScore'] = movies['GenreScore'] + movies['Rating'] + movies['RecencyBonus']
+```
+
+### Explanation:
+Movies released in earlier years receive a small penalty, while recent movies get a bonus.
+
+---
+
+## Adding Popularity Boost
+Ensure highly rated movies get an additional boost in recommendations.
+
+Modify the `RecommendationScore` calculation:
+
+```python
+movies['PopularityBoost'] = movies['Rating'].apply(lambda r: 0.5 if r > 4.5 else 0)
+movies['RecommendationScore'] = movies['GenreScore'] + movies['Rating'] + movies['PopularityBoost']
+```
+
+### Explanation:
+Movies with an average rating greater than 4.5 receive a boost, prioritizing highly rated content.
+
+---
+
+## Personalizing by Director or Cast
+Include user preferences for specific directors or actors.
+
+1. Add a `Director` or `Cast` column to the dataset.
+2. Locate the `RecommendationScore` calculation and add:
+   
+```python
+preferred_directors = ["Christopher Nolan", "Steven Spielberg"]
+movies['DirectorBonus'] = movies['Director'].apply(lambda d: 0.5 if d in preferred_directors else 0)
+movies['RecommendationScore'] = movies['GenreScore'] + movies['Rating'] + movies['DirectorBonus']
+```
+
+### Explanation:
+Movies directed by the user's favorite directors get a bonus, improving personalization.
+
+---
+
+## Weighted Combination of Factors
+Combine multiple factors like genre similarity, recency, and popularity with adjustable weights.
+
+1. Modify the RecommendationScore calculation:
+   
+```python
+movies['RecommendationScore'] = (
+    2 * movies['GenreScore'] +
+    1.5 * movies['Rating'] +
+    1 * movies['RecencyBonus'] +
+    0.5 * movies['PopularityBoost']
+)
+```
+2. You may try to play around with the weights and see what differences it makes.
+   
+### Explanation:
+The weights for each factor can be adjusted to balance the importance of each feature.
 
 ---
 
