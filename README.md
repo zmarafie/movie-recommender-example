@@ -152,7 +152,7 @@ Feel free to experiment with different weights to balance personalization and po
 Update the formula in the notebook and re-run all cells to see how the recommendations change!
 
 ---
-# Advanced Customizations for the Recommendation System (Optional)
+# Advanced Customizations (Optional)
 You can modify the scoring formula or introduce additional factors to adjust how recommendations are generated. Below are concepts you can add to the notebook, along with step-by-step instructions.
 
 ## Adding Genre Diversity
